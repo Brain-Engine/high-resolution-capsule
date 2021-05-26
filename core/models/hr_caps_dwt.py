@@ -56,3 +56,10 @@ def lr_caps_r_fpn(num_classes=10, args=None, **kwargs):
     routing_name_list = ['Tiny_FPN'] if args.routing_name_list is None else args.routing_name_list
     backbone = models.__dict__[args.backbone]
     return LRCaps(in_shape, num_classes, routing_name_list, backbone)
+
+#
+# if __name__ == '__main__':
+#     inp = torch.ones((1, 3, 32, 32))
+#     model = HRCaps((3, 32, 32), 10, ['FPN', 'FPN'], models.__dict__['resnet10_dwt_tiny_half'])
+#     out = model(inp)
+#     print(out.shape)

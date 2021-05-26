@@ -10,7 +10,10 @@ from core.layers.resnet import \
     TinyBlockDWT, \
     TinyBottleDWT, \
     ResNetBackbone, \
-    ResBlockLR, ResNetGumbel, TinyBlock_x_7
+    ResBlockLR, \
+    ResLR, \
+    ResNetGumbel, \
+    TinyBlock_x_7
 
 
 class ResNet(nn.Module):
@@ -214,7 +217,7 @@ def resnet10_tiny_half(block=TinyBasicBlock, num_blocks=None, num_classes=10,
     if backbone:
         return ResBlockLR(block, num_blocks, half=half, in_channel=in_channel)
     else:
-        raise NotImplemented
+        return ResLR(block, num_blocks, num_classes=num_classes, half=half, in_channel=in_channel)
 
 
 def resnet10_dwt_tiny_half(block=TinyBlockDWT, num_blocks=None, num_classes=10,
@@ -224,7 +227,7 @@ def resnet10_dwt_tiny_half(block=TinyBlockDWT, num_blocks=None, num_classes=10,
     if backbone:
         return ResBlockLR(block, num_blocks, half=half, in_channel=in_channel)
     else:
-        raise NotImplemented
+        return ResLR(block, num_blocks, num_classes=num_classes, half=half, in_channel=in_channel)
 
 
 def res_block_tiny(block=TinyBasicBlock, in_channel=3, out_channel=256, backbone=True, **kwargs):

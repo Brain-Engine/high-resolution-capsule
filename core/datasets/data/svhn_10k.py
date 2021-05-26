@@ -8,7 +8,7 @@ cifar_normalize = transforms.Normalize(mean=[0.43090966, 0.4302428, 0.44634357],
 
 cifar_transform_train = transforms.Compose([
     transforms.RandomCrop(32, padding=1),
-    transforms.RandomRotation((-30, 30)),
+    # transforms.RandomRotation((-30, 30)),
     # transforms.RandomHorizontalFlip(),
     transforms.ToTensor(),
     cifar_normalize,
