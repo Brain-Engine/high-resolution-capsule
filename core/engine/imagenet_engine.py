@@ -1,4 +1,5 @@
 import os
+import time
 import torch
 import torch.backends.cudnn as cudnn
 import torch.distributed as dist
@@ -138,8 +139,9 @@ def main_worker(gpu, ngpus_per_node, args):
         adjust_learning_rate(optimizer, epoch, args)
 
         # train for one epoch
+        start = time.time()
         train(train_loader, model, criterion, optimizer, epoch, args)
-
+        print(f"epoch time {time.time() - start}")
         # evaluate on validation set
         acc1 = validate(val_loader, model, criterion, args)
 
