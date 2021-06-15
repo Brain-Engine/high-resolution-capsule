@@ -1,4 +1,6 @@
 import numpy as np
+
+
 # __all__ = {"imagenet", "cifar", "mnist", "get_scheduler_by_name"}
 
 
@@ -11,7 +13,7 @@ def imagenet(optimizer, epoch, args):
 
 def cifar(optimizer, epoch, args):
     if epoch < 10:
-        lr = args.lr * (epoch/10)
+        lr = args.lr * (epoch / 10)
     elif epoch < 100:
         lr = args.lr
     elif epoch < 170:
@@ -26,7 +28,7 @@ def cifar(optimizer, epoch, args):
 
 def small_norb(optimizer, epoch, args):
     if epoch < 10:
-        lr = args.lr * (epoch/10)
+        lr = args.lr * (epoch / 10)
     elif epoch < 40:
         lr = args.lr
     elif epoch < 80:
@@ -56,14 +58,17 @@ def mnist(optimizer, epoch, args):
         param_group['lr'] = lr
 
 
-def adam(optimizer, epoch, args, warm=10):
+def cos(optimizer, epoch, args, warm=10):
+    epoch += 1
     if epoch < warm:
         lr = args.lr * (epoch / warm)
     else:
         epoch = epoch - warm
         total = args.epochs - warm
-        factor = np.cos(epoch/total)
+        factor = np.cos(epoch * 3.1415926 / total)
         lr = args.lr * factor
+
+    print(f"[INFO] Learning Rate = {lr}")
     for param_group in optimizer.param_groups:
         param_group['lr'] = lr
 
@@ -72,7 +77,7 @@ _scheduler_dict = {"imagenet": imagenet,
                    "cifar": cifar,
                    "mnist": mnist,
                    "small_norb": small_norb,
-                   "adam": adam,
+                   "cos": cos,
                    }
 
 
